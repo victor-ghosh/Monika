@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Monika</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffe6e6; /* Cute light pink background */
+            font-family: 'Varela Round', sans-serif;
+            overflow: hidden; /* Prevent scrolling when button gets huge */
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            color: #d6336c;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+
+        .gif-container img {
+            width: 200px;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            align-items: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Varela Round', sans-serif;
+        }
+
+        #yesBtn {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            font-weight: bold;
+        }
+
+        #noBtn {
+            background-color: #f44336; /* Red */
+            color: white;
+        }
+
+        /* Success Message Styling */
+        .success-message {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .success-message h1 {
+            font-size: 3rem;
+            color: #ff4081;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Question Screen -->
+    <div class="container" id="questionScreen">
+        <div class="gif-container">
+            <!-- Cute sad bear gif -->
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExODhiMzY4NjE5ODE0YmUyNmQ2ZjFhODdkM2I0YjY4YTE4YjFkZGE1ZiZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PXM/h4OGa0npayrEB2VRFv/giphy.gif" alt="Sad Bear">
+        </div>
+        <h1>Will you forgive me Monika?</h1>
+        <div class="btn-container">
+            <button id="yesBtn">Yes</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+
+    <!-- Success Screen (Hidden by default) -->
+    <div class="success-message" id="successScreen">
+        <div class="gif-container">
+            <!-- Happy hugging bear gif -->
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2QyNzE5NmI4OTE3NzFkOWUwYjY5Y2I5ZGVjYmE0Njg1ODNhZDM2ZSZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PXM/iCVzZwwE6QhFPHR0gL/giphy.gif" alt="Happy Bear">
+        </div>
+        <h1>YAY! I knew it! ❤️</h1>
+        <p style="color: #d6336c; font-size: 1.5rem;">I love you Monika!</p>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const questionScreen = document.getElementById('questionScreen');
+        const successScreen = document.getElementById('successScreen');
+
+        // Text variations for the "No" button
+        const noTexts = [
+            "No",
+            "Are you sure?",
+            "Monika please?",
+            "Don't do this to me :(",
+            "I'm really sorry!",
+            "You're breaking my heart",
+            "I'm gonna cry...",
+            "Just click Yes!",
+            "Pretty please?",
+            "Have a heart Monika",
+            "Really no??",
+            "Okay, I'll be sad forever"
+        ];
+
+        let clickCount = 0;
+        let currentFontSize = 1.2; // Initial font size in rem
+
+        // Function when "No" is clicked
+        noBtn.addEventListener('click', () => {
+            clickCount++;
+            
+            // 1. Make Yes button bigger
+            currentFontSize += 0.5; // Increase size
+            yesBtn.style.fontSize = `${currentFontSize}rem`;
+            
+            // Increase padding to maintain shape
+            const newPadding = 10 + (clickCount * 5);
+            yesBtn.style.padding = `${newPadding}px ${newPadding * 2}px`;
+
+            // 2. Change text on No button
+            const textIndex = Math.min(clickCount, noTexts.length - 1);
+            noBtn.innerText = noTexts[textIndex];
+        });
+
+        // Function when "Yes" is clicked
+        yesBtn.addEventListener('click', () => {
+            questionScreen.style.display = 'none'; // Hide question
+            successScreen.style.display = 'flex'; // Show success
+        });
+    </script>
+
+</body>
+</html>
