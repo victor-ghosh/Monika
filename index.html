@@ -16,7 +16,7 @@
             height: 100vh;
             background-color: #ffe6e6; /* Cute light pink background */
             font-family: 'Varela Round', sans-serif;
-            overflow: hidden; /* Prevent scrolling when button gets huge */
+            overflow: hidden; 
         }
 
         .container {
@@ -32,9 +32,144 @@
         }
 
         .gif-container img {
-            width: 200px;
+            width: 250px;
             height: auto;
-            border-radius: 10px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            align-items: center;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Varela Round', sans-serif;
+        }
+
+        #yesBtn {
+            background-color: #ff4d79; 
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(255, 77, 121, 0.4);
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.05);
+            background-color: #ff3366;
+        }
+
+        #noBtn {
+            background-color: #ffffff;
+            color: #d6336c;
+            border: 2px solid #ffccd5;
+        }
+        
+        #noBtn:hover {
+            background-color: #fff0f3;
+        }
+
+        /* Success Message Styling */
+        .success-message {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .success-message h1 {
+            font-size: 3rem;
+            color: #ff4081;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Question Screen -->
+    <div class="container" id="questionScreen">
+        <div class="gif-container">
+            <!-- Fixed Sad Bear GIF -->
+            <img src="https://media1.tenor.com/m/7zKwuDDmmQAAAAAC/cute-sad.gif" alt="Sad Bear">
+        </div>
+        <h1>Will you forgive me Monika?</h1>
+        <div class="btn-container">
+            <button id="yesBtn">Yes</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+
+    <!-- Success Screen (Hidden by default) -->
+    <div class="success-message" id="successScreen">
+        <div class="gif-container">
+            <!-- Fixed Happy Hugging Bear GIF -->
+            <img src="https://media1.tenor.com/m/aKFaZbrZFYkAAAAAC/milk-and-mocha-hug.gif" alt="Happy Bear">
+        </div>
+        <h1>YAY! I knew it! ❤️</h1>
+        <p style="color: #d6336c; font-size: 1.5rem;">I love you Monika!</p>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const questionScreen = document.getElementById('questionScreen');
+        const successScreen = document.getElementById('successScreen');
+
+        // Text variations for the "No" button
+        const noTexts = [
+            "No",
+            "Are you sure?",
+            "Monika please?",
+            "Don't do this to me :(",
+            "I'm really sorry!",
+            "You're breaking my heart",
+            "I'm gonna cry...",
+            "Just click Yes!",
+            "Pretty please?",
+            "Have a heart Monika",
+            "Really no??",
+            "Okay, I'll be sad forever"
+        ];
+
+        let clickCount = 0;
+        let currentFontSize = 1.2; // Initial font size in rem
+
+        // Function when "No" is clicked
+        noBtn.addEventListener('click', () => {
+            clickCount++;
+            
+            // 1. Make Yes button bigger
+            currentFontSize += 0.5; // Increase size
+            yesBtn.style.fontSize = `${currentFontSize}rem`;
+            
+            // Increase padding to maintain shape
+            const newPadding = 12 + (clickCount * 5);
+            const newPaddingSide = 25 + (clickCount * 10);
+            yesBtn.style.padding = `${newPadding}px ${newPaddingSide}px`;
+
+            // 2. Change text on No button
+            const textIndex = Math.min(clickCount, noTexts.length - 1);
+            noBtn.innerText = noTexts[textIndex];
+        });
+
+        // Function when "Yes" is clicked
+        yesBtn.addEventListener('click', () => {
+            questionScreen.style.display = 'none'; // Hide question
+            successScreen.style.display = 'flex'; // Show success
+        });
+    </script>
+
+</body>
+</html>            border-radius: 10px;
             margin-bottom: 20px;
         }
 
